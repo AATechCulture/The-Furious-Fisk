@@ -118,13 +118,26 @@ io.on("connection", (socket) => {
 
         // Now check for no of passengers 
         if (bookinginfo["no_of_passengers"] == ""){
-            socket.emit("message", "Please enter the number of passengers for the flight.")
+            socket.emit("message", "Please enter the number of passengers for the flight.");
+        } else {
+            socket.emit("input_completed", "All data has been processed");
         }
+
     })
     socket.on("no_of_pas", (data) => {
-        bookinginfo["no_of_passengers"] = parseInt(data)
+        bookinginfo["no_of_passengers"] = parseInt(data);
         console.log(bookinginfo);
+        socket.emit("input_completed", "All data has been processed.");
     })
+
+    socket.on('proceed_with_search', () => {
+        console.log("Proceeding with search now");
+    })
+
+    socket.on("sound_on", ()=> {
+        console.log("Turn on sound");
+    })
+
     socket.on("disconnect", () => {
         console.log("User Disconnected", socket.id);
     })
