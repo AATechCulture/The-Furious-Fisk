@@ -176,6 +176,7 @@ async function fetchFlights(date) {
         
 
       }
+      console.log(flights);
       return flights
 
       
@@ -223,7 +224,7 @@ io.on("connection", (socket) => {
             for(let i in initialInfo){
                 bookinginfo[i] = initialInfo[i];
             }  
-            // console.log(bookinginfo);
+            console.log(bookinginfo);
         }
 
 
@@ -242,28 +243,29 @@ io.on("connection", (socket) => {
         socket.emit("input_completed", "All data has been processed.");
     })
 
-    socket.on('proceed_with_search', () => {
-        if (bookinginfo['oneway'] == true){
-            const date = parseDate(bookinginfo["depart_date"])
-            const flights = fetchFlights(date);
+    socket.on('proceed_with_search', async () => {
+        try {
+          if (bookinginfo['oneway'] === true) {
+            const date = parseDate(bookinginfo["depart_date"]);
+            const flights = await fetchFlights(date);
             socket.emit("single_flight", flights);
-        } else {
-            const depart_date = parseDate(bookinginfo["arrival_date"])
-            const depart_flights = fetchFlights(depart_date);
-            const arrival_date = parseDate(bookinginfo["arrival_date"])
-            const arrival_flights = fetchFlights(arrival_date);
-            socket.emit("dual_flights" ,[depart_flights, arrival_flights]
+          } else {
+            const depart_date = parseDate(bookinginfo["arrival_date"]);
+            const arrival_date = parseDate(bookinginfo["arrival_date"]);
+      
+            // Use Promise.all to wait for both promises to resolve
+            const [departFlights, arrivalFlights] = await Promise.all([
+              fetchFlights(depart_date),
+              fetchFlights(arrival_date)
+            ]);
+      
+            socket.emit("dual_flights", [departFlights, arrivalFlights]);
+          }
+        } catch (error) {
+          // Handle any errors that may occur during the data retrieval
+          console.error("An error occurred:", error);
         }
-        
-        
-        
-
-
-  
-
-        // Create an asynchronous function to make the API request
-
-    })
+      });
 
     socket.on("sound_on", ()=> {
         console.log("Turn on sound");
