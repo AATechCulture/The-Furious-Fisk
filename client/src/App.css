@@ -1,4 +1,4 @@
-.App {
+App {
   text-align: center;
   background-color: #f0f0f0; /* Set a background color for the app */
   height: 100vh; /* Ensure the app takes up the full viewport height */
@@ -52,3 +52,24 @@ button[type="submit"] {
   left: 10px; /* Adjust left position as needed */
 }
 
+/* Style for user messages */
+.user-message {
+  background-color: #007bff;
+  color: white;
+  padding: 10px;
+  margin: 10px;
+  border-radius: 10px;
+  align-self: flex-end;
+  max-width: 70%;
+}
+
+/* Style for server messages */
+.server-message {
+  background-color: #f0f0f0;
+  color: #333;
+  padding: 10px;
+  margin: 10px;
+  border-radius: 10px;
+  align-self: flex-start;
+  max-width: 70%;
+}

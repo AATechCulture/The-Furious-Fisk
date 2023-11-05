@@ -10,6 +10,8 @@ import cors from 'cors';
 import http from 'http';
 import { Server } from 'socket.io';
 import 'openai';
+import axios from 'axios';
+import { jsonc } from 'jsonc';
 
 import OpenAIApi from 'openai';
 import Configuration from 'openai';
@@ -85,11 +87,121 @@ async function getInitialInfo(text) {
 }
 
 
+function parseDate(date){
+    const date1 = new Date(date);
+    const year = date1.getFullYear();
+    const month = String(date1.getMonth() + 1).padStart(2, '0'); // Month is 0-indexed, so add 1 and pad with zeros.
+    const day = String(date1.getDate()).padStart(2, '0');
+    
+    const formattedDate = `${year}-${month}-${day}`;
+    // console.log(formattedDate);
+    return formattedDate;
+}
+
+
+
+async function fetchFlights(date) {
+
+    const apiUrl = 'http://localhost:4000/';
+
+    const destination = "DFW";
+
+    try {
+      const response = await axios.get(`${apiUrl}flights`, {
+        params: {
+            date
+        }
+      });
+
+  
+      // Process the response here, for example, log it to the console
+    //   console.log('API Response:', response);
+    // console.log(typeof(response));
+      
+    //   let response_values = Object.values(response.data);
+    //   response_values = JSON.parse(response.data);
+
+      let len = response.data.length
+
+      let flights = []
+
+
+
+      for(let i = 0; i < 3; i++){
+        let indv_flights = {}
+        indv_flights['flightNumber'] = response.data[i].flightNumber;
+        indv_flights['origin'] = response.data[i].origin.city;
+        indv_flights['destination'] = response.data[i].destination.city;
+        indv_flights['duration'] = response.data[i].duration.locale;
+        let departure_time = new Date(response.data[i].departureTime);
+        let arrival_time = new Date(response.data[i].arrivalTime);
+
+
+        indv_flights['departureTime'] = departure_time.toLocaleString('en-US')
+        indv_flights['arrivalTime'] = arrival_time.toLocaleString('en-US');   
+         
+        function getRandomIntInRange(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+          }
+          
+          const min = 300; // Minimum value of the range
+          const max = 400; // Maximum value of the range
+          
+          const randomInt = getRandomIntInRange(min, max);
+          indv_flights['price'] = randomInt;          
+
+        
+
+        // const date = new Date(indv_flights['departureTime']);
+        // const options = {
+        //   year: 'numeric',
+        //   month: 'long',
+        //   day: 'numeric',
+        //   hour: 'numeric',
+        //   minute: 'numeric',
+        //   hour12: true,
+        //   timeZoneName: 'short',
+        //   timeZone: 'short',
+        // };
+        flights.push(indv_flights);
+        
+        // const formattedDate = new Intl.DateTimeFormat('en-US', options).format(date);
+        
+        // console.log(formattedDate);
+        // console.log(date);
+        
+        
+        // console.log(indv_flights);
+        // console.log('\n\n\n')
+        
+
+      }
+      return flights
+
+      
+
+
+      
+
+
+
+      
+    } catch (error) {
+      // Handle any errors that may occur during the request
+      console.error('Error:', error);
+    }
+  }
+
+
+ 
+  
+
+
 
 
 io.on("connection", (socket) => {
     socket.on("message", async (data)=> {
-        socket.join(socket.id);
+        // socket.join(socket.id);
         // console.log(`User joined room: ${socket.id}`);
 
         let bookingRequest = await isBookingRequest(data);
@@ -107,11 +219,11 @@ io.on("connection", (socket) => {
             let initialInfo = await getInitialInfo(data);
             // console.log(initialInfo);
             initialInfo = JSON.parse(String(initialInfo.message.content));
-            console.log(initialInfo);
+            // console.log(initialInfo);
             for(let i in initialInfo){
                 bookinginfo[i] = initialInfo[i];
             }  
-            console.log(bookinginfo);
+            // console.log(bookinginfo);
         }
 
 
@@ -126,12 +238,31 @@ io.on("connection", (socket) => {
     })
     socket.on("no_of_pas", (data) => {
         bookinginfo["no_of_passengers"] = parseInt(data);
-        console.log(bookinginfo);
+        // console.log(bookinginfo);
         socket.emit("input_completed", "All data has been processed.");
     })
 
     socket.on('proceed_with_search', () => {
-        console.log("Proceeding with search now");
+        if (bookinginfo['oneway'] == true){
+            const date = parseDate(bookinginfo["depart_date"])
+            const flights = fetchFlights(date);
+            socket.emit("single_flight", flights);
+        } else {
+            const depart_date = parseDate(bookinginfo["arrival_date"])
+            const depart_flights = fetchFlights(depart_date);
+            const arrival_date = parseDate(bookinginfo["arrival_date"])
+            const arrival_flights = fetchFlights(arrival_date);
+            socket.emit("dual_flights" ,[depart_flights, arrival_flights]
+        }
+        
+        
+        
+
+
+  
+
+        // Create an asynchronous function to make the API request
+
     })
 
     socket.on("sound_on", ()=> {

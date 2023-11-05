@@ -13,10 +13,17 @@ function App() {
       setMessages((prevMessages) => [...prevMessages, data]);
     });
 
+    socket.on('input_completed', ()=> {
+      socket.emit("proceed_with_search", "We can search for flights now");
+    })
+
     return () => {
       // socket.disconnect();
     };
   }, [socket]);
+
+
+
 
   const handleMessageChange = (event) => {
     setMessage(event.target.value);
@@ -25,9 +32,14 @@ function App() {
   const handleSubmit = (event) => {
     event.preventDefault();
     if (message !== "") {
-      console.log("Here!");
-      socket.emit("message", message);
+      if(message.length < 4){
+        socket.emit("no_of_pas", message);
+      } else {
+        socket.emit("message", message);
+      }
+
     }
+
     setMessages((prevMessages) => [...prevMessages, `You: ${message}`]);
     setMessage('');
   };
