@@ -27,6 +27,13 @@ let bookinginfo = {
     "no_of_passengers": "" 
 }
 
+let bookinginfo_arr = []
+
+for (let info in bookinginfo){
+    bookinginfo_arr.push(info)
+}
+// console.log(bookinginfo_arr);
+
 
 
 
@@ -58,7 +65,7 @@ async function isBookingRequest(text) {
         model: 'gpt-3.5-turbo',
         messages: [
             {
-                role: 'user', content:`Is the following text desiring for a flight ticket. Give the answer in either True or False. "${text}"`
+                role: 'user', content:`Give me a JSON with fields ticketdesire and roundtrip with values as either true or false by analyzing the following text to see if there is a desire for a ticket and if there is a desire for roundtrip and return only the JSON as answer. "${text}"`
             }
         ]
     });
@@ -70,7 +77,7 @@ async function getInitialInfo(text) {
         model: 'gpt-3.5-turbo',
         messages: [
             {
-                role: 'user', content:`Give me a python dictionary with fields origin, destination, date with the following sentence."${text}"`
+                role: 'user', content:`Give me a JSON with fields origin, destination, depart_date with the following sentence and return the dictionary as the only answer. Add one more field return date if the return date is also mentioned. Add one more field no_of_passengers if the number of passengers are also mentioned. Return just the JSON as answer."${text}"`
             }
         ]
     });
@@ -84,16 +91,39 @@ io.on("connection", (socket) => {
     socket.on("message", async (data)=> {
         socket.join(socket.id);
         // console.log(`User joined room: ${socket.id}`);
-        console.log("here");
-        const bookingRequest = await isBookingRequest(data);
-        if (bookingRequest.message.content){
-            const initialInfo = await getInitialInfo(data);
+
+        let bookingRequest = await isBookingRequest(data);
+        bookingRequest = JSON.parse(bookingRequest.message.content);
+        if (bookingRequest["roundtrip"] == true){
+            bookinginfo["oneway"] = false
+        } else {
+            bookinginfo["oneway"] = true
+        }
+
+        // Handling the oneway trip and twoway trip
+
+        console.log(bookingRequest);
+        if (bookingRequest["ticketdesire"]){
+            let initialInfo = await getInitialInfo(data);
+            // console.log(initialInfo);
+            initialInfo = JSON.parse(String(initialInfo.message.content));
             console.log(initialInfo);
-            for(var i in initialInfo){
+            for(let i in initialInfo){
                 bookinginfo[i] = initialInfo[i];
-            }
+            }  
             console.log(bookinginfo);
         }
+
+
+
+        // Now check for no of passengers 
+        if (bookinginfo["no_of_passengers"] == ""){
+            socket.emit("message", "Please enter the number of passengers for the flight.")
+        }
+    })
+    socket.on("no_of_pas", (data) => {
+        bookinginfo["no_of_passengers"] = parseInt(data)
+        console.log(bookinginfo);
     })
     socket.on("disconnect", () => {
         console.log("User Disconnected", socket.id);

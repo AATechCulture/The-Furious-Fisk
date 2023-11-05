@@ -28,8 +28,13 @@ function App() {
   const handleSubmit = (event) => {
     event.preventDefault();
     if (message !== ""){
-      console.log("Here!");
-      socket.emit("message", message);
+      console.log(message);
+      console.log(message.length);
+      if (message.length < 4){
+        socket.emit("no_of_pas", message)
+      } else{
+        socket.emit("message", message);
+      }
     }
     setMessages((prevMessages) => [...prevMessages, `You: ${message}`])
     setMessage('');
