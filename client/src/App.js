@@ -58,9 +58,14 @@ function App() {
        <img src={chatboxImageURL} alt="Chatbox Logo" className="chatbox-image" />
       <h2>Captain Chatbot</h2>
       <div className="chat-box">
-        {messages.map((msg, index) => (
-          <div key={index} className={msg.startsWith("You:") ? "user-message" : "server-message"}>{msg}</div>
-        ))}
+      {messages.map((msg, index) => (
+  <div key={index} className={msg.startsWith("You:") ? "user-message" : "server-message"}>
+    {msg.startsWith("You:") ? (
+      <span className="speaker-icon">🔊</span>
+    ) : null}
+    {msg}
+  </div>
+))}
       </div>
       <form onSubmit={handleSubmit}>
         <input
@@ -70,6 +75,9 @@ function App() {
           onChange={handleMessageChange}
         />
         <button type="submit">Send</button>
+        {/* <div className="toggle-microphone">
+        🎤
+        </div> */}
       </form>
     </div>
   );
