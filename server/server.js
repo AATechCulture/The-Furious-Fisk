@@ -48,7 +48,7 @@ const server = http.createServer(app);
 
 
 const configuration = new Configuration({
-    apiKey: process.env.OPENAI_API_KEY
+    apiKey: "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"
 });
 
 const openai = new OpenAIApi(configuration);
