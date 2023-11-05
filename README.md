@@ -10,11 +10,6 @@ ___________
 * How might we make it possible for people who have poor vision to have an easy booking experience?
 * How might we make it easier for first-time and infrequent flyers to navigate the site?
 
-Examples:
-* How might we decrease the United States chances of alien and monster attacks given what we know from popular alien and monster movies?
-* How might we make it possible for people in cities not to have to own a car by making car-sharing easier so that the environment will be less damaged and people can save money?
-* How might we ....
-
 ## Project Description 🤯
 Captain is an improved chatbot that streamlines and enhances the booking
 experience to be inclusive, efficient, and user-friendly, leveraging
@@ -49,7 +44,7 @@ The Furious Fisk
 **...point us to where you tell us about your solution 😄**
 
 ### Link to Demo Presentation 📽
-**...point us to your PPT or Canva slides 😍**
+[**Our PPT slides 😍**](https://1drv.ms/p/s!AlE9P1fn-tu5gZIs4unMHrX5KTGEOA)
 
 ### Team Checklist due before 5p Saturday 11/4 ✅
 - [X] Team photo
@@ -60,11 +55,6 @@ The Furious Fisk
 - [X] Scavenger Hunt submission
 
 ### Project Checklist due before 10a Sunday 11/5 🏁
-- [ ] Presentation complete and linked
-- [ ] Video pitch recorded and linked
-- [ ] Code merged to main branch
-
-### Sample Checklist for Syntax Example 
-- [ ] Presentation complete and linked
+- [X] Presentation complete and linked
 - [ ] Video pitch recorded and linked
 - [ ] Code merged to main branch
