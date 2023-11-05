@@ -17,6 +17,14 @@ function App() {
       socket.emit("proceed_with_search", "We can search for flights now");
     })
 
+    socket.on('single_flight', (data) => {
+      setMessages((prevMessages) => [...prevMessages, data]);
+    })
+
+    socket.on('dual-flights', (data)=> {
+      setMessages((prevMessages) => [...prevMessages, data]);
+    })
+
     return () => {
       // socket.disconnect();
     };

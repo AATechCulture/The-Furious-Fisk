@@ -252,15 +252,8 @@ io.on("connection", (socket) => {
             const depart_flights = fetchFlights(depart_date);
             const arrival_date = parseDate(bookinginfo["arrival_date"])
             const arrival_flights = fetchFlights(arrival_date);
-            socket.emit("dual_flights" ,[depart_flights, arrival_flights]
+            socket.emit("dual_flights" ,[depart_flights, arrival_flights]);
         }
-        
-        
-        
-
-
-  
-
         // Create an asynchronous function to make the API request
 
     })
