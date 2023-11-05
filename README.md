@@ -1,14 +1,14 @@
-# BE Smart Hack Repo Template
+# BE Smart Hack - The Furious Fisk
 
 ## Description 🚨 
-This is a repository template containing all the information that needs to accompany your project.
-
-Feel free to use any languages or frameworks, but the following information must be filled out before hacking ends.
+This is the official repository for Captian, an enhanced chatbot using the power of OpenAI and American Airlines to streamline and enhance the booking experience. Find out more below.
 ___________
-# Project Name
+# Captain
 
 ## Challenge Statement(s) Addressed 🎯
-**...include the challenge statement(s) the project worked to address**
+* How might we decrease the number of senior citizens that leave the American Airlines site due to frustration with the booking process?
+* How might we make it possible for people who have poor vision to have an easy booking experience?
+* How might we make it easier for first-time and infrequent flyers to navigate the site?
 
 Examples:
 * How might we decrease the United States chances of alien and monster attacks given what we know from popular alien and monster movies?
@@ -16,7 +16,10 @@ Examples:
 * How might we ....
 
 ## Project Description 🤯
-**....at lease 3 sentences describing what the project does and how it works**
+Captain is an improved chatbot that streamlines and enhances the booking
+experience to be inclusive, efficient, and user-friendly, leveraging
+the capabilities of AI through OpenAI and American Airlines' flight
+API.
 
 ## Project Value 💰
 **....at lease 3 sentences describing your target customer and tangible benefits from your solution**
@@ -24,24 +27,23 @@ Examples:
 
 ## Tech Overview 💻
 **... what tech was used to bring this project to life?**
-
-Example:
-* FastAPI
-* Hugging Face AI Models
-* Next.js
+* OpenAI GPT 3.5-turbo API
+* American Airlines Flight Engine API
+* socket.io
 
 
 ### ✨ Contributors ✨
-**...tell the world who you and your team are 🙂**
-* Team member X (AAdvantage No)
-* Team member Y (AAdvantage No)
-* Team member Z (AAdvantage No)
+* Timia Raines (AAdvantage No)
+* Charles Owens (AAdvantage No)
+* Aman Singh (AAdvantage No)
+* Sandesh Lamsal (AAdvantage No)
+* Aman Singh (AAdvantage No)
 
 ### School Name 🏫
-The ABC School
+Fisk University
 
 ### Team Name 🏷
-Coding Costars
+The Furious Fisk
 
 ### Link to Video Pitch 📹
 **...point us to where you tell us about your solution 😄**
@@ -50,12 +52,12 @@ Coding Costars
 **...point us to your PPT or Canva slides 😍**
 
 ### Team Checklist due before 5p Saturday 11/4 ✅
-- [ ] Team photo
-- [ ] Team Slack channel
-- [ ] Communication established with mentor
-- [ ] Repo creation from this template
-- [ ] Hangar registration
-- [ ] Scavenger Hunt submission
+- [X] Team photo
+- [X] Team Slack channel
+- [X] Communication established with mentor
+- [X] Repo creation from this template
+- [X] Hangar registration
+- [X] Scavenger Hunt submission
 
 ### Project Checklist due before 10a Sunday 11/5 🏁
 - [ ] Presentation complete and linked
@@ -66,4 +68,3 @@ Coding Costars
 - [ ] Presentation complete and linked
 - [ ] Video pitch recorded and linked
 - [ ] Code merged to main branch
-
