@@ -17,7 +17,7 @@ function App() {
     });
 
     return () => {
-      socket.disconnect();
+      // socket.disconnect();
     };
   }, [socket]);
 
@@ -28,6 +28,7 @@ function App() {
   const handleSubmit = (event) => {
     event.preventDefault();
     if (message !== ""){
+      console.log("Here!");
       socket.emit("message", message);
     }
     setMessages((prevMessages) => [...prevMessages, `You: ${message}`])
