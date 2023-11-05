@@ -74,6 +74,9 @@ function App() {
           onChange={handleMessageChange}
         />
         <button type="submit">Send</button>
+        {/* <div className="toggle-microphone">
+        🎤
+        </div> */}
       </form>
     </div>
   );
