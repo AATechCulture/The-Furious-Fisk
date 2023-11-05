@@ -48,7 +48,7 @@ const server = http.createServer(app);
 
 
 const configuration = new Configuration({
-    apiKey: "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"
+    apiKey: process.env.OPENAI_API_KEY
 });
 
 const openai = new OpenAIApi(configuration);
@@ -252,8 +252,15 @@ io.on("connection", (socket) => {
             const depart_flights = fetchFlights(depart_date);
             const arrival_date = parseDate(bookinginfo["arrival_date"])
             const arrival_flights = fetchFlights(arrival_date);
-            socket.emit("dual_flights" ,[depart_flights, arrival_flights]);
+            socket.emit("dual_flights" ,[depart_flights, arrival_flights]
         }
+        
+        
+        
+
+
+  
+
         // Create an asynchronous function to make the API request
 
     })

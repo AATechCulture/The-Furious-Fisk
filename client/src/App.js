@@ -17,15 +17,6 @@ function App() {
       socket.emit("proceed_with_search", "We can search for flights now");
     })
 
-    socket.on('single_flight', (data) => {
-      setMessages((prevMessages) => [...prevMessages, data]);
-    })
-
-    socket.on('dual-flights', (data)=> {
-      setMessages((prevMessages) => [...prevMessages, data]);
-    })
-
-    
     return () => {
       // socket.disconnect();
     };
@@ -58,14 +49,9 @@ function App() {
        <img src={chatboxImageURL} alt="Chatbox Logo" className="chatbox-image" />
       <h2>Captain Chatbot</h2>
       <div className="chat-box">
-      {messages.map((msg, index) => (
-  <div key={index} className={msg.startsWith("You:") ? "user-message" : "server-message"}>
-    {msg.startsWith("You:") ? (
-      <span className="speaker-icon">🔊</span>
-    ) : null}
-    {msg}
-  </div>
-))}
+        {messages.map((msg, index) => (
+          <div key={index} className={msg.startsWith("You:") ? "user-message" : "server-message"}>{msg}</div>
+        ))}
       </div>
       <form onSubmit={handleSubmit}>
         <input
@@ -75,9 +61,6 @@ function App() {
           onChange={handleMessageChange}
         />
         <button type="submit">Send</button>
-        {/* <div className="toggle-microphone">
-        🎤
-        </div> */}
       </form>
     </div>
   );

@@ -1,60 +1,69 @@
-
-.App {
+App {
   text-align: center;
-  background-color: #f0f0f0;
-  height: 100vh;
+  background-color: #f0f0f0; /* Set a background color for the app */
+  height: 100vh; /* Ensure the app takes up the full viewport height */
   display: flex;
   flex-direction: column;
-  position: relative; /* Added position relative to make absolute positioning work */
-}
-
-.chatbox-image {
-  width: 40px;
-  height: auto;
-  position: absolute;
-  top: 10px;
-  left: 10px;
 }
 
 h2 {
-  background-color: #007bff;
+  background-color: #007bff; /* Add a blue background color to the heading */
   color: white;
   padding: 10px;
   margin: 0;
-  position: relative; /* Added position relative */
 }
 
 .chat-box {
-  flex: 1;
-  overflow-y: auto;
+  flex: 1; /* Allow the chat box to expand and fill the remaining space */
+  overflow-y: auto; /* Add a vertical scroll for overflow content */
   padding: 10px;
-  background-color: #fff;
-  border: 1px solid #ccc;
-  display: flex; /* Added to arrange messages in a column */
-  flex-direction: column; /* Added to arrange messages in a column */
+  background-color: #fff; /* Set a white background for the chat box */
+  border: 1px solid #ccc; /* Add a border for the chat box */
 }
 
+form {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background-color: #fff; /* Set a white background for the input form */
+  border: 1px solid #ccc; /* Add a border for the input form */
+}
+
+input[type="text"] {
+  flex: 1; /* Allow the input to expand and fill the available space */
+  padding: 5px;
+  border: 1px solid #ccc; /* Add a border for the input field */
+}
+
+button[type="submit"] {
+  background-color: #007bff; /* Set a blue background color for the send button */
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.chatbox-image {
+  width: 40px; /* Adjust the width as needed */
+  height: auto; /* Maintain aspect ratio */
+  position: absolute;
+  top: 10px; /* Adjust top position as needed */
+  left: 10px; /* Adjust left position as needed */
+}
+
+/* Style for user messages */
 .user-message {
-  background-color: #0078d2;
+  background-color: #007bff;
   color: white;
   padding: 10px;
-  padding-right: 40px;
   margin: 10px;
   border-radius: 10px;
   align-self: flex-end;
   max-width: 70%;
-  position: relative;
 }
 
-.speaker-icon {
-  position: absolute;
-  top: 50%;
-  right: 9px; /* Adjust the right offset as needed */
-  transform: translateY(-50%);
-  font-size: 20px; /* Adjust the size as needed */
-}
-
-
+/* Style for server messages */
 .server-message {
   background-color: #f0f0f0;
   color: #333;
@@ -63,64 +72,4 @@ h2 {
   border-radius: 10px;
   align-self: flex-start;
   max-width: 70%;
-}
-
-/* Styling for the speaker icon in server messages */
-.server-message .speaker-icon {
-  position: absolute;
-  top: 50%;
-  left: -30px; /* Adjust the left offset as needed */
-  transform: translateY(-50%);
-  font-size: 20px; /* Adjust the size as needed */
-}
-
-/* Style for the form container */
-form {
-  display: flex;
-  align-items: center;
-  padding: 10px;
-  background-color: #f0f0f0;
-  border: 1px solid #ccc;
-}
-
-/* Style for the text input field */
-input[type="text"] {
-  flex: 1;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 20px;
-  margin: 0;
-}
-
-/* Style for the submit button */
-button[type="submit"] {
-  background-color: #0078d2;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  margin-left: 10px;
-  border-radius: 20px;
-  cursor: pointer;
-}
-
-button[type="submit"]:hover {
-  background-color: #005ba7;
-}
-
-button[type="submit"] {
-  background-color: #0078d2;
-  color: white;
-  border: none;
-  padding: 5px 10px;
-  cursor: pointer;
-}
-
-/* Add styling for the chatbox logo */
-.chatbox-image {
-  width: 40px;
-  height: auto;
-  position: absolute;
-  top: 4px;
-  left: 4px;
-  z-index: 1; /* Ensure the image is in front of other elements */
 }
