@@ -58,13 +58,14 @@ function App() {
       <h2>Captain Chatbot</h2>
       <div className="chat-box">
       {messages.map((msg, index) => (
-  <div key={index} className={msg.startsWith("You:") ? "user-message" : "server-message"}>
-    {msg.startsWith("You:") ? (
+  <div key={index} className={msg.includes("You:") ? "user-message" : "server-message"}>
+    {msg.includes("You:") ? (
       <span className="speaker-icon">🔊</span>
     ) : null}
     {msg}
   </div>
 ))}
+
       </div>
       <form onSubmit={handleSubmit}>
         <input
